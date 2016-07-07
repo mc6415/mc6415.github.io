@@ -45,7 +45,6 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	__webpack_require__(1);
-	__webpack_require__(173);
 
 /***/ },
 /* 1 */
@@ -64,30 +63,45 @@
 	      pokemon: ''
 	    };
 	  },
-	  handleselChange: function (e) {
-	    this.setState({ pokemon: e.target.value });
+	  loadPokemon: function () {
+	    $.ajax({
+	      url: 'http://pokeapi.co/api/v1/pokedex/1/',
+	      success: function (res) {
+	        this.setState({ pokemon: res.pokemon });
+	      }.bind(this)
+	    });
+	  },
+	  componentDidMount: function () {
+	    this.loadPokemon();
 	  },
 	  render: function () {
-	    var pokemon = '';
-	    if (this.state.pokemon != '') {
-	      var pokemon = React.createElement(Pokemon, { name: this.state.pokemon });
+	    console.log(this.state.pokemon);
+
+	    var pokemonList = [];
+	    for (var key in this.state.pokemon) {
+	      var name = this.state.pokemon[key].name;
+	      name = name.charAt(0).toUpperCase() + name.slice(1);
+	      console.log(name);
+	      pokemonList.push(name);
 	    }
+
+	    var nodes = pokemonList.map(function (poke) {
+	      return React.createElement(
+	        'option',
+	        { value: poke },
+	        poke
+	      );
+	    });
+
+	    console.log(nodes);
+
 	    return React.createElement(
 	      'div',
 	      null,
 	      React.createElement(
 	        'select',
-	        { id: 'pokemonSight', onChange: this.handleselChange },
-	        React.createElement(
-	          'option',
-	          { value: 'Bulbasaur' },
-	          'Bulbasaur'
-	        ),
-	        React.createElement(
-	          'option',
-	          { value: 'Pikachu' },
-	          'Pikachu'
-	        )
+	        { id: 'pokemonSight' },
+	        nodes
 	      )
 	    );
 	  }
@@ -22670,34 +22684,6 @@
 	    }
 	  });
 	});
-
-/***/ },
-/* 173 */
-/***/ function(module, exports) {
-
-	var map;
-	function initMap() {
-	  map = new google.maps.Map(document.getElementById('map'), {
-	    center: { lat: 51.5074, lng: 0.1278 },
-	    zoom: 15
-	  });
-
-	  map.addListener('click', function (e) {
-	    placeMarker(e.latLng, map);
-	  });
-
-	  placeMarker = function (latlng, map) {
-	    var image = 'http://images.pokemonlake.com/' + $('#pokemonSight').val() + '.png';
-
-	    var marker = new google.maps.Marker({
-	      position: latlng,
-	      map: map,
-	      title: "Sup",
-	      animation: google.maps.Animation.DROP,
-	      icon: image
-	    });
-	  };
-	}
 
 /***/ }
 /******/ ]);
