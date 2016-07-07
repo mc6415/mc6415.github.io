@@ -57,7 +57,7 @@ function initMap() {
 
   loadMarker = function(lat, lng, pokemon, map){
     var image = {
-      url: 'https://images.pokemonlake.com/' + pokemon + '.png',
+      url: 'http://images.pokemonlake.com/' + pokemon + '.png',
       scaledSize: new google.maps.Size(40,40)
     }
 
@@ -72,7 +72,7 @@ function initMap() {
 
   placeMarker = function(lat, lng, map){
     var image = {
-      url: 'https://images.pokemonlake.com/' + $('#pokeName').val() + '.png',
+      url: 'http://images.pokemonlake.com/' + $('#pokeName').val() + '.png',
       scaledSize: new google.maps.Size(40,40)
       // origin: new google.maps.Point(0,0),
       // anchor: new google.maps.Point(0,0)
