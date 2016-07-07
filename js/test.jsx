@@ -22,6 +22,10 @@ var TestComp = React.createClass({
   },
   testFunction: function(e){
     $('#pokeName').val(e.target.id);
+    $('.list-group-item').css("color", "");
+    $('.list-group-item').css('background', '');
+    $(e.target).css("color", "white");
+    $(e.target).css('background', '#5468FF');
   },
   render: function(){
     var nodes = this.state.pokemon.map(function(poke){
@@ -29,15 +33,15 @@ var TestComp = React.createClass({
       name =  name.charAt(0).toUpperCase() + name.slice(1);
       if(name.indexOf('Nidoran-m') > -1){
         return(
-          <li id="Nidoran (M)" key={name}>Nidoran (M)</li>
+          <a href="#" className="list-group-item" id="Nidoran (M)" key={name}>Nidoran (M)</a>
         )
       } else if (name.indexOf('Nidoran-f') > -1) {
         return(
-          <li id="Nidoran (F)" key={name}>Nidoran (F)</li>
+          <a href="#" className="list-group-item" id="Nidoran (F)" key={name}>Nidoran (F)</a>
         )
       } else {
         return(
-          <li key={name} id={name}>{name}</li>
+          <a href="#" className="list-group-item" key={name} id={name}>{name}</a>
         )
       }
     })
@@ -45,9 +49,9 @@ var TestComp = React.createClass({
     return(
       <div>
 
-        <ul id="pokemonSight" onClick={this.testFunction}>
+        <div className="list-group" id="pokemonSight" onClick={this.testFunction} style={{height: window.innerHeight +'px'}}>
             {nodes}
-        </ul>
+        </div>
 
       </div>
     )

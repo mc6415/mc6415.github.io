@@ -76,6 +76,10 @@
 	  },
 	  testFunction: function (e) {
 	    $('#pokeName').val(e.target.id);
+	    $('.list-group-item').css("color", "");
+	    $('.list-group-item').css('background', '');
+	    $(e.target).css("color", "white");
+	    $(e.target).css('background', '#5468FF');
 	  },
 	  render: function () {
 	    var nodes = this.state.pokemon.map(function (poke) {
@@ -83,20 +87,20 @@
 	      name = name.charAt(0).toUpperCase() + name.slice(1);
 	      if (name.indexOf('Nidoran-m') > -1) {
 	        return React.createElement(
-	          'li',
-	          { id: 'Nidoran (M)', key: name },
+	          'a',
+	          { href: '#', className: 'list-group-item', id: 'Nidoran (M)', key: name },
 	          'Nidoran (M)'
 	        );
 	      } else if (name.indexOf('Nidoran-f') > -1) {
 	        return React.createElement(
-	          'li',
-	          { id: 'Nidoran (F)', key: name },
+	          'a',
+	          { href: '#', className: 'list-group-item', id: 'Nidoran (F)', key: name },
 	          'Nidoran (F)'
 	        );
 	      } else {
 	        return React.createElement(
-	          'li',
-	          { key: name, id: name },
+	          'a',
+	          { href: '#', className: 'list-group-item', key: name, id: name },
 	          name
 	        );
 	      }
@@ -106,8 +110,8 @@
 	      'div',
 	      null,
 	      React.createElement(
-	        'ul',
-	        { id: 'pokemonSight', onClick: this.testFunction },
+	        'div',
+	        { className: 'list-group', id: 'pokemonSight', onClick: this.testFunction, style: { height: window.innerHeight + 'px' } },
 	        nodes
 	      )
 	    );
