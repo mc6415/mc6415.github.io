@@ -4,6 +4,7 @@ function initMap() {
     center: {lat: 51.5074, lng: 0.1278},
     zoom: 12
   });
+  var infoWindow = new google.maps.InfoWindow({map: map});
 
   if(navigator.geolocation){
     navigator.geolocation.getCurrentPosition(function(position){
@@ -12,6 +13,8 @@ function initMap() {
         lng: position.coords.longitude
       };
 
+      infoWindow.setPosition(pos);
+      infoWindow.setPosition('You are here');
       map.setCenter(pos);
     }, function(){
       console.log("GeoLocation is no working cap'n")
