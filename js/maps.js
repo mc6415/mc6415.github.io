@@ -21,8 +21,21 @@ function initMap() {
     })
   }
 
+
+
   map.addListener('click', function(e){
-    placeMarker(e.latLng, map);
+    $.ajax({
+      url: 'http://86.8.141.101:3000/api/addSighting',
+      data: {
+        pokemon: $('#pokeName').val(),
+        lat: e.latLng.lat(),
+        lng: e.latLng.lng()
+      },
+      method: 'POST',
+      success: function(res){
+      }
+    })
+    placeMarker(e.latLng.lat(), e.latLng.lng(), map);
   })
 
   map.addListener('zoom_changed', function(){
@@ -31,22 +44,51 @@ function initMap() {
     }
   })
 
-  placeMarker = function(latlng, map){
+  loadSightings = function(){
+    $.ajax({
+      url: 'http://86.8.141.101:3000/api/getSightings',
+      success: function(res){
+        res.forEach(function(sighting){
+            loadMarker(sighting.lat, sighting.lng, sighting.pokemon, map)
+        })
+      }
+    })
+  }
+
+  loadMarker = function(lat, lng, pokemon, map){
     var image = {
-      url: 'http://images.pokemonlake.com/' + $('#pokemonSight').val() + '.png',
-      scaledSize: new google.maps.Size(50,50),
-      origin: new google.maps.Point(0,0),
-      anchor: new google.maps.Point(0,0)
+      url: 'http://images.pokemonlake.com/' + pokemon + '.png',
+      scaledSize: new google.maps.Size(40,40)
+    }
+
+    var marker = new google.maps.Marker({
+      position: {lat: lat, lng: lng},
+      map: map,
+      animation: google.maps.Animation.DROP,
+      icon: image
+    })
+
+  }
+
+  placeMarker = function(lat, lng, map){
+    var image = {
+      url: 'http://images.pokemonlake.com/' + $('#pokeName').val() + '.png',
+      scaledSize: new google.maps.Size(40,40)
+      // origin: new google.maps.Point(0,0),
+      // anchor: new google.maps.Point(0,0)
     }
 
     // var image =
 
     var marker = new google.maps.Marker({
-      position: latlng,
+      position: {lat: lat, lng: lng},
       map: map,
       title: "Sup",
       animation: google.maps.Animation.DROP,
       icon : image
     });
   }
+
+loadSightings();
+
 }

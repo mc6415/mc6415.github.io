@@ -6,47 +6,48 @@ var Pokemon = require('react-pokemon')
 var TestComp = React.createClass({
   getInitialState: function() {
     return {
-      pokemon:''
+      pokemon: []
     };
   },
   loadPokemon: function(){
     $.ajax({
-      url: 'https://pokeapi.co/api/v1/pokedex/1/',
+      url: 'https://pokeapi.co/api/v2/pokemon/?limit=1000',
       success: function(res){
-        this.setState({pokemon: res.pokemon});
+        this.setState({pokemon: res.results});
       }.bind(this)
     })
   },
   componentDidMount: function() {
     this.loadPokemon();
   },
+  testFunction: function(e){
+    $('#pokeName').val(e.target.id);
+  },
   render: function(){
-    console.log(this.state.pokemon);
-
-    var pokemonList = []
-    for(var key in this.state.pokemon){
-      var name = this.state.pokemon[key].name;
-      name = name.charAt(0).toUpperCase() + name.slice(1);
-      console.log(name);
-      pokemonList.push(name)
-    }
-
-    var nodes = pokemonList.map(function(poke){
-      return(
-        <option value={poke}>{poke}</option>
-      )
+    var nodes = this.state.pokemon.map(function(poke){
+      var name = poke.name;
+      name =  name.charAt(0).toUpperCase() + name.slice(1);
+      if(name.indexOf('Nidoran-m') > -1){
+        return(
+          <li id="Nidoran (M)" key={name}>Nidoran (M)</li>
+        )
+      } else if (name.indexOf('Nidoran-f') > -1) {
+        return(
+          <li id="Nidoran (F)" key={name}>Nidoran (F)</li>
+        )
+      } else {
+        return(
+          <li key={name} id={name}>{name}</li>
+        )
+      }
     })
-
-    console.log(nodes);
 
     return(
       <div>
 
-        <select id="pokemonSight">
-
-          {nodes}
-
-        </select>
+        <ul id="pokemonSight" onClick={this.testFunction}>
+            {nodes}
+        </ul>
 
       </div>
     )

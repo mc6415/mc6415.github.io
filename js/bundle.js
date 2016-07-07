@@ -60,47 +60,54 @@
 
 	  getInitialState: function () {
 	    return {
-	      pokemon: ''
+	      pokemon: []
 	    };
 	  },
 	  loadPokemon: function () {
 	    $.ajax({
-	      url: 'https://pokeapi.co/api/v1/pokedex/1/',
+	      url: 'https://pokeapi.co/api/v2/pokemon/?limit=1000',
 	      success: function (res) {
-	        this.setState({ pokemon: res.pokemon });
+	        this.setState({ pokemon: res.results });
 	      }.bind(this)
 	    });
 	  },
 	  componentDidMount: function () {
 	    this.loadPokemon();
 	  },
+	  testFunction: function (e) {
+	    $('#pokeName').val(e.target.id);
+	  },
 	  render: function () {
-	    console.log(this.state.pokemon);
-
-	    var pokemonList = [];
-	    for (var key in this.state.pokemon) {
-	      var name = this.state.pokemon[key].name;
+	    var nodes = this.state.pokemon.map(function (poke) {
+	      var name = poke.name;
 	      name = name.charAt(0).toUpperCase() + name.slice(1);
-	      console.log(name);
-	      pokemonList.push(name);
-	    }
-
-	    var nodes = pokemonList.map(function (poke) {
-	      return React.createElement(
-	        'option',
-	        { value: poke },
-	        poke
-	      );
+	      if (name.indexOf('Nidoran-m') > -1) {
+	        return React.createElement(
+	          'li',
+	          { id: 'Nidoran (M)', key: name },
+	          'Nidoran (M)'
+	        );
+	      } else if (name.indexOf('Nidoran-f') > -1) {
+	        return React.createElement(
+	          'li',
+	          { id: 'Nidoran (F)', key: name },
+	          'Nidoran (F)'
+	        );
+	      } else {
+	        return React.createElement(
+	          'li',
+	          { key: name, id: name },
+	          name
+	        );
+	      }
 	    });
-
-	    console.log(nodes);
 
 	    return React.createElement(
 	      'div',
 	      null,
 	      React.createElement(
-	        'select',
-	        { id: 'pokemonSight' },
+	        'ul',
+	        { id: 'pokemonSight', onClick: this.testFunction },
 	        nodes
 	      )
 	    );
