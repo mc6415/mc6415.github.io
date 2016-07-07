@@ -1,0 +1,28 @@
+{
+  "name": "PokemonSightings",
+  "version": "1.0.0",
+  "description": "",
+  "main": "webpack.config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "babel-core": "^6.10.4",
+    "babel-loader": "^6.2.4",
+    "babel-preset-react": "^6.11.1",
+    "cls-bluebird": "^1.1.3",
+    "fs": "0.0.2",
+    "jquery": "^3.0.0",
+    "json-loader": "^0.5.4",
+    "net": "^1.0.2",
+    "pokedex-promise": "^1.0.3",
+    "react": "^15.2.0",
+    "react-dom": "^15.2.0",
+    "react-pokemon": "^0.1.0",
+    "tls": "0.0.1",
+    "webpack": "^1.13.1"
+  }
+}
