@@ -25,8 +25,21 @@ function initMap() {
     placeMarker(e.latLng, map);
   })
 
+  map.addListener('zoom_changed', function(){
+    if(map.getZoom() < 10){
+      map.setZoom(10);
+    }
+  })
+
   placeMarker = function(latlng, map){
-    var image = 'http://images.pokemonlake.com/' + $('#pokemonSight').val() + '.png'
+    var image = {
+      url: 'http://images.pokemonlake.com/' + $('#pokemonSight').val() + '.png',
+      scaledSize: new google.maps.Size(50,50),
+      origin: new google.maps.Point(0,0),
+      anchor: new google.maps.Point(0,0)
+    }
+
+    // var image =
 
     var marker = new google.maps.Marker({
       position: latlng,
