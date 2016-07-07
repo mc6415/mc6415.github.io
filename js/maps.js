@@ -14,7 +14,7 @@ function initMap() {
       };
 
       infoWindow.setPosition(pos);
-      infoWindow.setPosition('You are here');
+      infoWindow.setContent('You are here');
       map.setCenter(pos);
     }, function(){
       console.log("GeoLocation is no working cap'n")
