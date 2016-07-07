@@ -2,6 +2,11 @@ var React = require('react')
 var ReactDOM = require('react-dom')
 var $ = require('jquery')
 var Pokemon = require('react-pokemon')
+var mongoose = require('mongoose')
+
+mongoose.connect('mongodb://86.8.141.101:27017/')
+
+console.log(mongoose)
 
 var TestComp = React.createClass({
   getInitialState: function() {
