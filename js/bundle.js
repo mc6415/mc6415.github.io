@@ -65,7 +65,7 @@
 	  },
 	  loadPokemon: function () {
 	    $.ajax({
-	      url: 'http://pokeapi.co/api/v1/pokedex/1/',
+	      url: 'https://pokeapi.co/api/v1/pokedex/1/',
 	      success: function (res) {
 	        this.setState({ pokemon: res.pokemon });
 	      }.bind(this)
