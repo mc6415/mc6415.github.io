@@ -25,7 +25,7 @@ function initMap() {
 
   map.addListener('click', function(e){
     $.ajax({
-      url: 'http://86.8.141.101:3000/api/addSighting',
+      url: 'https://86.8.141.101:3000/api/addSighting',
       data: {
         pokemon: $('#pokeName').val(),
         lat: e.latLng.lat(),
@@ -46,7 +46,7 @@ function initMap() {
 
   loadSightings = function(){
     $.ajax({
-      url: 'http://86.8.141.101:3000/api/getSightings',
+      url: 'https://86.8.141.101:3000/api/getSightings',
       success: function(res){
         res.forEach(function(sighting){
             loadMarker(sighting.lat, sighting.lng, sighting.pokemon, map)
